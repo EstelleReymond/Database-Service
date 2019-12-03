@@ -1,5 +1,7 @@
 # Database Service
 
+It must be run on linux.
+
 ## Docker
 
 If you want to use docker, first you need to install `docker` and `docker-compose`
@@ -28,7 +30,7 @@ The instructions in the `Docker` section might be helpful.
 
 And then, to run the api, you'll need to install nodejs on your computer and then follow the instructions:
 
-+ change directory to the root of the repositorye
++ change directory to the root of the repository
 + run `npm install`
 + run `npm run start`
 
