@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+echo -n "projection type name: "
+read projectionTypeName
+echo -n "price: "
+read price
+
+data=`echo {\"projectionTypeName\": \"$projectionTypeName\", \"price\": \"$price\"}`
+
+echo $data > /tmp/lalalala
+
+curl "http://localhost:8080/projection_type" -X POST -H "Content-Type: application/json" -d @/tmp/lalalala
+
+rm /tmp/lalalala

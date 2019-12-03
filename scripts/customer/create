@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+echo -n "screening id: "
+read screeningID
+echo -n "age: "
+read age
+
+data=`echo {\"screeningID\": $screeningID, \"age\": $age}`
+
+echo $data > /tmp/lalalala
+
+curl "http://localhost:8080/customer" -X POST -H "Content-Type: application/json" -d @/tmp/lalalala
+
+rm /tmp/lalalala

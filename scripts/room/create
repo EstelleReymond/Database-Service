@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+echo -n "capacity: "
+read capacity
+
+data=`echo {\"capacity\": \"$capacity\"}`
+
+echo $data > /tmp/lalalala
+
+curl "http://localhost:8080/room" -X POST -H "Content-Type: application/json" -d @/tmp/lalalala
+
+rm /tmp/lalalala

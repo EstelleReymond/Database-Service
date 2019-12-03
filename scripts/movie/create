@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+echo -n "title: "
+read title
+echo -n "ageNeeded: "
+read ageNeeded
+echo -n "duration: "
+read duration
+
+data=`echo {\"title\": \"$title\", \"ageNeeded\": \"$ageNeeded\", \"duration\":\"$duration\"}`
+
+echo $data > /tmp/lalalala
+
+curl "http://localhost:8080/movie" -X POST -H "Content-Type: application/json" -d @/tmp/lalalala
+
+rm /tmp/lalalala

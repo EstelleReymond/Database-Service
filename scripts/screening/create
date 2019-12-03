@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+echo -n "movie id: " 
+read movieID
+echo -n "room id: "
+read roomID
+echo -n "projection type id: "
+read projectionTypeID
+echo -n "begin: "
+read begin
+echo -n "end: "
+read end
+
+data=`echo {\"movieID\": $movieID, \"roomID\": $roomID, \"projectionTypeID\": $projectionTypeID, \"begin\": \"$begin\", \"end\": \"$end\"}`
+
+echo $data
+
+echo $data > /tmp/lalalala
+
+curl "http://localhost:8080/screening" -X POST -H "Content-Type: application/json" -d @/tmp/lalalala
+
+rm /tmp/lalalala

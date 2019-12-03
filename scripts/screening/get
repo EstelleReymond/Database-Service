@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+echo -n "id: "
+read id
+
+curl "http://localhost:8080/screening/$id"

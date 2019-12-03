@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+echo -n "first name: "
+read firstName
+echo -n "last name: "
+read lastName
+
+data=`echo {\"firstName\": \"$firstName\", \"lastName\": \"$lastName\"}`
+
+echo $data > /tmp/lalalala
+
+curl "http://localhost:8080/actor" -X POST -H "Content-Type: application/json" -d @/tmp/lalalala
+
+rm /tmp/lalalala

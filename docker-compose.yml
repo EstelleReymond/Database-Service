@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb
+    volumes:
+      - ./db/data:/var/lib/mysql:rw
+      - ./db/scripts:/opt/db/scripts:ro
+      - ./db/outputs:/opt/db/outputs:rw
+    environment:
+      MYSQL_DATABASE: cinema
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 3306:3306
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    volumes:
+      - ./src:/usr/src/app/src
+    # command: sh -c "npm install && npm run start"
+    command: sh -c "npm install && npm run dev"
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_NAME: cinema
+      DB_PASS: password
+    ports: 
+      - 8080:8080

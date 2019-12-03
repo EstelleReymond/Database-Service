@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+echo -n "room id: "
+read room_id
+echo -n "seat id: "
+read seat_id
+echo -n "available: "
+read available
+
+data=`echo {\"room_id\": $room_id, \"seat_id\": $seat_id, \"available\": $available}`
+
+echo $data
+
+echo $data > /tmp/lalalala
+
+curl "http://localhost:8080/room_seat" -X POST -H "Content-Type: application/json" -d @/tmp/lalalala
+
+rm /tmp/lalalala

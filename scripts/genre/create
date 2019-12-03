@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+echo -n "genre name: "
+read genreName
+
+data=`echo {\"genreName\": \"$genreName\"}`
+
+echo $data > /tmp/lalalala
+
+curl "http://localhost:8080/genre" -X POST -H "Content-Type: application/json" -d @/tmp/lalalala
+
+rm /tmp/lalalala

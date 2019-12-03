@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+echo -n "brand name: "
+read brandName
+echo -n "duration: "
+read duration
+
+data=`echo {\"brandName\": \"$brandName\", \"duration\": $duration}`
+
+echo $data > /tmp/lalalala
+
+curl "http://localhost:8080/ad" -X POST -H "Content-Type: application/json" -d @/tmp/lalalala
+
+rm /tmp/lalalala
