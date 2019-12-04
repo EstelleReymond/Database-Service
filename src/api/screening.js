@@ -42,6 +42,29 @@ router.get('/next_n_days/:n_days', async ctx => {
 	ctx.body = screenings
 })
 
+// GET ALL SCREENING FROM TODAY
+router.get('/all/today', async ctx => {
+	const today = new Date()
+	const tomorrow = new Date()
+	tomorrow.setDate(tomorrow.getDate() + 1)
+
+	const remove_time = date => {
+		date.setHours(0)
+		date.setMinutes(0)
+		date.setSeconds(0)
+	}
+
+	remove_time(tomorrow)
+
+	const screenings = await knex
+		.select('*')
+		.from('Screening')
+		.where('begin', '>=', today)
+		.where('begin', '<=', tomorrow)
+
+	ctx.body = screenings
+})
+
 // GET ALL FROM A MOVIE
 router.get('/all/of_movie/:movie_id', async ctx => {
 	const { movie_id } = ctx.params
