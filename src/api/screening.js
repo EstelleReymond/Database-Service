@@ -42,6 +42,20 @@ router.get('/next_n_days/:n_days', async ctx => {
 	ctx.body = screenings
 })
 
+// GET ALL FROM A MOVIE
+router.get('/all/of_movie/:movie_id', async ctx => {
+	const { movie_id } = ctx.params
+
+	const today = new Date()
+	const screenings = await knex
+		.select('*')
+		.from('Screening')
+		.where('begin' >= today.toISOString())
+		.where('movieID', '=', movie_id)
+
+	ctx.body = screenings
+})
+
 // CREATE A SCREENING
 router.post('/', required(['movieID', 'roomID', 'begin', 'end', 'projectionTypeID']), async ctx => {
 	const { movieID, roomID, begin, end, projectionTypeID } = ctx.request.body
