@@ -37,6 +37,7 @@ router.get('/next_n_days/:n_days', async ctx => {
 		.from('Screening')
 		.where('begin', '>=', begin.toISOString())
 		.where('begin', '<=', end.toISOString())
+		.orderBy('begin')
 
 	ctx.body = screenings
 })
