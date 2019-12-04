@@ -179,15 +179,127 @@ ALTER TABLE CustomerSeat
 	ADD FOREIGN KEY (seatID, roomID) references RoomSeat(seatID, roomID) ON DELETE CASCADE;
 
 
-/*
-insert into Food
-values (1,'Coca','Drink',3000),
-(2,'Sprite','Drink',3000),
-(3,'Popcorn','Eatible',5000),
-(4,'Popocorn + Cola','Mix',7000),
-(5,'Candies','Eatible',4000)
-;
-select * from Food;
-*/
+INSERT INTO ProjectionType
+VALUES	
+	(4, '2D', 7000),
+	(1, '3D', 10000),
+	(2, 'IMAX', 10000),
+	(3, 'Talk', 2000);
+
+INSERT INTO Actor
+VALUES
+	(9, 'Malek', 'Rami'),
+	(1, 'HoSong', 'Kang'),
+	(2, 'Teller', 'Miles'),
+	(3, 'Jackman', 'Hugh'),
+	(4, 'Diecapri', 'Leonardo'),
+	(5, 'Reno', 'Jean'),
+	(6, 'Osment', 'Haley Joel'),
+	(7, 'Homs', 'Emmyl ou'),
+	(8, 'Emile', 'Hirsch');
+
+INSERT INTO Director
+VALUES 
+	(9, 'Singer', 'Bryan'),
+    (1, 'Bong', 'Joon Ho'),
+    (2, 'Chazelle', 'Damien'),
+    (3, 'Nolan', 'Christopher'),
+    (4, 'Boyle', 'Danny'),
+    (5, 'Besson', 'Luc'),
+    (6, 'Spielberg', 'Steven'),
+    (7, 'Buck', 'Chris'),
+    (8, 'Ovredal', 'André');
+
+INSERT INTO Movie
+VALUES 
+	(1, 'Parasite',18,132),
+    (2, 'Whiplash',12,107),
+    (3, 'The Prestige', 6, 128),
+    (4, 'The Beach', 16, 119),
+    (5, 'Leon', 16, 103),
+    (6, 'Artificial Intelligence', 12, 140),
+    (7, 'Frozen', 0, 112),
+    (8, 'Jane Doe Identity', 12, 90),
+    (9, 'Celebration', 0, 180),
+	(10, 'Bohemian Rhapsody',12, 135);
+
+INSERT INTO Advertisement
+VALUES	
+	(6, 'Mercedes', 2),
+	(1, 'Snickers', 1),
+	(2, 'SamYang', 3),
+	(3, 'Samsung', 2),
+	(4, 'Sony', 6),
+	(5, 'Häagen-Dazs', 1);
+
+INSERT INTO Genre
+VALUES
+    (5, 'Horor'),
+    (1, 'Drama'),
+    (2, 'Thriller'),
+    (3, 'Sci-fi'),
+    (4, 'Animation');
+
+INSERT INTO Screening
+VALUES
+	(1, 10 ,3, '2019-12-06 20:00:00', '2019-12-06 22:30:00', 4),
+    (2, 10, 3, '2019-12-07 20:00:00', '2019-12-07 22:30:00', 4),
+    (3, 9, 3, '2019-12-08 20:30:00', '2019-12-05 23:30:00', 3),
+    (4, 1, 1, '2019-12-05 19:45:00', '2019-12-05 22:05:00', 2),
+    (5, 1, 1, '2019-12-06 19:45:00', '2019-12-05 22:05:00', 2),
+    (6, 1, 1, '2019-12-07 19:45:00', '2019-12-05 22:05:00', 2),
+    (7, 1, 1, '2019-12-08 19:30:00', '2019-12-05 21:50:00', 2),
+	(8, 7, 2, '2019-12-05 16:00:00', '2019-12-05 18:00:00', 1),
+    (9, 7, 2, '2019-12-05 19:00:00', '2019-12-05 21:00:00', 1),
+    (10, 7, 2, '2019-12-06 16:00:00', '2019-12-06 18:00:00', 1),
+    (11, 7, 2, '2019-12-06 19:00:00', '2019-12-06 21:00:00', 1),
+    (12, 7, 2, '2019-12-07 16:00:00', '2019-12-07 18:00:00', 1),
+    (13, 7, 2, '2019-12-07 19:00:00', '2019-12-07 21:00:00', 1),
+    (14, 7, 2, '2019-12-08 19:00:00', '2019-12-08 21:00:00', 1),
+	(15, 10, 3, '2019-12-05 20:00:00', '2019-12-05 22:30:00', 4);
+
+INSERT INTO MovieActor
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
+    (8, 8),
+    (9, 10);
+
+
+
+INSERT INTO MovieDirector
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
+    (8, 8),
+	(9, 10);
+
+INSERT INTO MovieGenre
+VALUES
+	(1, 10),
+    (2, 1),
+    (1, 2),
+    (2, 3),
+    (2, 4),
+    (1, 5),
+    (3, 6),
+    (4, 7),
+    (2, 8);
+
+
+
+
+
+
 
 

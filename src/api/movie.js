@@ -13,6 +13,15 @@ const get_from_id = id => {
 		.first()
 }
 
+// ALL
+router.get('/all', async ctx => {
+	const movies = await knex
+		.select('*')
+		.from('Movie')
+
+	ctx.body = movies
+})
+
 // GET A MOVIE
 router.get('/:id', async ctx => {
 	const id = ctx.params.id
@@ -142,6 +151,33 @@ router.post('/:id/genre', required(['genreID']), async ctx => {
 
 	ctx.body = {}
 })
+
+
+// GET MOVIE WITH THE AGENEEDED
+router.get('/by_age/:age', async ctx => {
+	const age = ctx.params.age
+
+	const movie = await knex
+		.select('*')
+		.from('Movie')
+		.where('ageNeeded', '<=', age)
+
+	ctx.body = movie
+})
+
+// GET ROOM OF A MOVIE
+router.get('/:id/room', async ctx => {
+	const movieID = ctx.params.id
+
+	const room = await knex
+		.select('Room.*') 
+		.from('MovieRoom')
+		.rightJoin('Movie', 'MovieRoom.movieID', 'Movie.movieID')
+		.where('movieID', '=', movieID)
+
+	ctx.body = movie
+})
+
 
 // UPDATE A MOVIE
 router.put('/:id', async (ctx) => {

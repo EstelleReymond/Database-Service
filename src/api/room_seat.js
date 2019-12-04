@@ -14,6 +14,16 @@ const get_from_id = (room_id, seat_id) => {
 		.first()
 }
 
+// ALL BY ROOMID
+router.get('/all/:room_id', async ctx => {
+	const seats = await knex
+		.select('seatID')
+		.from('RoomSeat')
+		.where('roomID','=',room_id)
+		.orderby('seatID')
+
+	ctx.body = seats
+})
 // GET A ROOMSEAT
 router.get('/:room_id/:seat_id', async ctx => {
 	const roomID = ctx.params.room_id

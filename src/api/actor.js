@@ -12,6 +12,14 @@ const get_from_id = id => {
 		.where('actorID', '=', id)
 		.first()
 }
+// ALL
+router.get('/all', async ctx => {
+	const actors = await knex
+		.select('*')
+		.from('Actor')
+
+	ctx.body = actors
+})
 
 // GET AN ACTOR
 router.get('/:id', async ctx => {

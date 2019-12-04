@@ -13,6 +13,15 @@ const get_from_id = id => {
 		.first()
 }
 
+// ALL
+router.get('/all', async ctx => {
+	const advertisements = await knex
+		.select('*')
+		.from('Advertisement')
+
+	ctx.body = advertisements
+})
+
 // GET AN ADVERTISEMENT
 router.get('/:id', async ctx => {
 	const id = ctx.params.id

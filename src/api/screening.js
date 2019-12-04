@@ -13,6 +13,15 @@ const get_from_id = id => {
 		.first()
 }
 
+// ALL
+router.get('/all', async ctx => {
+	const screening = await knex
+		.select('*')
+		.from('Screening')
+
+	ctx.body = screening
+})
+
 // GET A SCREENING
 router.get('/:id', async ctx => {
 	const id = ctx.params.id
