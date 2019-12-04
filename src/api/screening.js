@@ -23,6 +23,24 @@ router.get('/:id', async ctx => {
 	ctx.body = screening
 })
 
+// GET ALL SCREENING BY WEEK
+router.get('/next_n_days/:n_days', async ctx => {
+	const n_days = parseInt(ctx.params.n_days)
+
+	const begin = new Date()
+	const end = new Date()
+	if (Number.isNaN(n_days)) ctx.throw(400, '\`n_days\` should be a number')
+	end.setDate(end.getDate() + parseInt(n_days))
+
+	const screenings = await knex
+		.select('*')
+		.from('Screening')
+		.where('begin', '>=', begin.toISOString())
+		.where('begin', '<=', end.toISOString())
+
+	ctx.body = screenings
+})
+
 // CREATE A SCREENING
 router.post('/', required(['movieID', 'roomID', 'begin', 'end', 'projectionTypeID']), async ctx => {
 	const { movieID, roomID, begin, end, projectionTypeID } = ctx.request.body

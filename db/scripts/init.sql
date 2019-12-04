@@ -25,8 +25,8 @@ Create table Screening(
 	screeningID int AUTO_INCREMENT,
 	movieID int,
 	roomID int,
-	begin date NOT NULL,
-	end date NOT NULL,
+	begin datetime NOT NULL,
+	end datetime NOT NULL,
 	projectionTypeID int,
 
 	primary key (screeningID)
