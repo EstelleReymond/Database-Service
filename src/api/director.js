@@ -13,6 +13,15 @@ const get_from_id = id => {
 		.first()
 }
 
+// ALL
+router.get('/all', async ctx => {
+	const directors = await knex
+		.select('*')
+		.from('Director')
+
+	ctx.body = directors
+})
+
 // GET A DIRECTOR
 router.get('/:id', async ctx => {
 	const id = ctx.params.id

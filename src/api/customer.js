@@ -13,6 +13,15 @@ const get_from_id = id => {
 		.first()
 }
 
+// ALL
+router.get('/all', async ctx => {
+	const customers = await knex
+		.select('*')
+		.from('Customer')
+
+	ctx.body = customers
+})
+
 // GET A CUSTOMER
 router.get('/:id', async ctx => {
 	const id = ctx.params.id
@@ -34,6 +43,31 @@ router.post('/', required(['screeningID', 'age']), async ctx => {
 
 	ctx.body = customer
 })
+
+// GET ALL CUSTOMER FOR A MOVIE
+router.get('/movie/:id_movie', async ctx => {
+    const movieID = ctx.params.id_movie
+
+    const customers = await knex
+    	.select('customerID')
+    	.from('Customer')
+    	.innerJoin('Screening','Screening.screeningID','Customer.screeningID')
+    	.where('movieID','=', movieID)
+	ctx.body = customers;
+	
+})
+
+
+//GET CUSTOMER SEAT
+router.get('/:id/seat', async ctx => {
+	const customerID = ctx.params.id
+	const seat = await knex
+	.select('CustomerSeat.seatID','CustomerSeat.roomID')
+	.from('CustomerSeat')
+	.where('CustomerSeat.customerID','=', customerID)
+ctx.body = CustomerSeat;
+})
+
 
 // UPDATE A CUSTOMER
 router.put('/:id', async (ctx) => {

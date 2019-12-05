@@ -13,6 +13,15 @@ const get_from_id = id => {
 		.first()
 }
 
+// ALL
+router.get('/all', async ctx => {
+	const foods = await knex
+		.select('*')
+		.from('Food')
+
+	ctx.body = foods
+})
+
 // GET A FOOD
 router.get('/:id', async ctx => {
 	const id = ctx.params.id
@@ -33,6 +42,19 @@ router.post('/', required(['foodName', 'typeFood', 'price']), async ctx => {
 	const food = await get_from_id(id)
 
 	ctx.body = food
+})
+	
+//GET FOOD BY Type
+router.get('/by_type/:type_food', async ctx => {
+	const typeFood = ctx.params.type_food
+	
+    const foodByType = await knex
+        .select('Food.foodName','Food.price')
+        .from('Food')
+		.where('typeFood', '=', typeFood)
+		.orderBy('foodName')
+	
+    ctx.body = foodByType
 })
 
 // UPDATE A FOOD

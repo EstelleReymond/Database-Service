@@ -13,6 +13,15 @@ const get_from_id = id => {
 		.first()
 }
 
+// ALL
+router.get('/all', async ctx => {
+	const movies = await knex
+		.select('*')
+		.from('Movie')
+
+	ctx.body = movies
+})
+
 // GET A MOVIE
 router.get('/:id', async ctx => {
 	const id = ctx.params.id
@@ -24,7 +33,7 @@ router.get('/:id', async ctx => {
 })
 
 // CREATE A MOVIE
-router.post('/', required(['title', 'ageNeeded']), async ctx => {
+router.post('/', required(['title', 'ageNeeded','duration']), async ctx => {
 	let { title, ageNeeded, duration } = ctx.request.body
 
 	const id = await knex('Movie')
@@ -46,6 +55,19 @@ router.get('/:id/actors', async ctx => {
 		.where('MovieActor.movieID', '=', movieID)
 
 	ctx.body = actors
+})
+
+// GET ALL MOVIE WITH A SPECIAL ACTOR
+router.get('/actor/:id_actor', async ctx => {
+	const actorID = ctx.params.id_actor
+
+	const movies = await knex
+		.select('*')
+		.from('MovieActor')
+		.rightJoin('Actor', 'MovieActor.actorID', 'Actor.actorID')
+		.where('MovieActor.actorID', '=', actorID)
+
+	ctx.body = movies
 })
 
 // GET GENRES OF A MOVIE
@@ -142,6 +164,33 @@ router.post('/:id/genre', required(['genreID']), async ctx => {
 
 	ctx.body = {}
 })
+
+
+// GET MOVIE WITH THE AGENEEDED
+router.get('/by_age/:age', async ctx => {
+	const age = ctx.params.age
+
+	const movie = await knex
+		.select('*')
+		.from('Movie')
+		.where('ageNeeded', '<=', age)
+
+	ctx.body = movie
+})
+
+// GET ROOM OF A MOVIE
+router.get('/:id/room', async ctx => {
+	const movieID = ctx.params.id
+
+	const room = await knex
+		.select('Room.*') 
+		.from('MovieRoom')
+		.rightJoin('Movie', 'MovieRoom.movieID', 'Movie.movieID')
+		.where('movieID', '=', movieID)
+
+	ctx.body = movie
+})
+
 
 // UPDATE A MOVIE
 router.put('/:id', async (ctx) => {

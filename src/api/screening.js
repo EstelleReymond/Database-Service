@@ -13,6 +13,15 @@ const get_from_id = id => {
 		.first()
 }
 
+// ALL
+router.get('/all', async ctx => {
+	const screening = await knex
+		.select('*')
+		.from('Screening')
+
+	ctx.body = screening
+})
+
 // GET A SCREENING
 router.get('/:id', async ctx => {
 	const id = ctx.params.id
@@ -97,14 +106,27 @@ router.post('/', required(['movieID', 'roomID', 'begin', 'end', 'projectionTypeI
 	ctx.body = screening
 })
 
+//DISPLAY CUSTOMERS FOR SCREENING
+router.get('/:id_screening/customers', async ctx => {
+	const screeningID = ctx.params.id_screening
+	
+    const customers = await knex
+    	.select('Customer.customerID')
+    	.from('Customer')
+		.where('Customer.screeningID','=', screeningID)
+		
+    ctx.body = customers;
+})
+
+
 // UPDATE A SCREENING
 router.put('/:id', async (ctx) => {
-	const { id } = ctx.params
+	const id = ctx.params.id
 	const { movieID, roomID, begin, end, projectionTypeID } = ctx.request.body
 
 	await knex('Screening')
 		.where('screeningID', '=', id)
-		.update({ movieID, roomID, begin, end, projectionType })
+		.update({ movieID, roomID, begin, end, projectionTypeID })
 		.catch(err => ctx.throw(404))
 
 	ctx.body = await get_from_id(id)

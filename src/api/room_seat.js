@@ -14,6 +14,17 @@ const get_from_id = (room_id, seat_id) => {
 		.first()
 }
 
+// ALL BY ROOMID
+router.get('/all/:room_id', async ctx => {
+	const room_id = ctx.params.room_id
+
+	const seats = await knex
+		.select('seatID')
+		.from('RoomSeat')
+		.where('roomID','=',room_id)
+
+	ctx.body = seats
+})
 // GET A ROOMSEAT
 router.get('/:room_id/:seat_id', async ctx => {
 	const roomID = ctx.params.room_id
@@ -26,13 +37,13 @@ router.get('/:room_id/:seat_id', async ctx => {
 })
 
 // CREATE A ROOMSEAT
-router.post('/', required(['room_id', 'seat_id']), async ctx => {
-	const roomID = ctx.params.room_id
-	const { seat_id, room_id } = ctx.request.body
+router.post('/', required(['roomID', 'seatID']), async ctx => {
+	//const roomID = ctx.params.room_id
+	const { room_id, seat_id } = ctx.request.body
 	const available = ctx.request.body.available || true
 
 	const id = await knex('RoomSeat')
-		.insert({ roomID: room_id, seatID: seat_id, available })
+		.insert({ room_id, seat_id, available })
 		.catch(err => ctx.throw(404))
 	const room_seat = await get_from_id(room_id, seat_id)
 
