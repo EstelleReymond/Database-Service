@@ -13,8 +13,6 @@ read end
 
 data=`echo {\"movieID\": $movieID, \"roomID\": $roomID, \"projectionTypeID\": $projectionTypeID, \"begin\": \"$begin\", \"end\": \"$end\"}`
 
-echo $data
-
 echo $data > /tmp/lalalala
 
 curl "http://localhost:8080/screening" -X POST -H "Content-Type: application/json" -d @/tmp/lalalala
