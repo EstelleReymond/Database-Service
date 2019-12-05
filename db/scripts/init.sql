@@ -15,7 +15,6 @@ Create Table Customer(
 	foodID int DEFAULT NULL,
 	screeningID int NOT NULL,
 	age int NOT NULL,
-	royaltyProgram bool,
 
 	primary key (customerID)
 );
@@ -122,7 +121,7 @@ DROP TABLE IF EXISTS Food;
 Create Table Food(
 	foodID int AUTO_INCREMENT,
 	foodName varchar(20) NOT NULL,
-	typeFood varchar(10) CHECK (typeFood IN ('drink', 'eat', 'mix')),
+	typeFood varchar(10) CHECK (typeFood IN ('drink', 'eat')),
 	price int NOT NULL,
 
 	primary key (foodID)
@@ -181,10 +180,17 @@ ALTER TABLE CustomerSeat
 
 INSERT INTO ProjectionType
 VALUES	
-	(4, '2D', 7000),
 	(1, '3D', 10000),
 	(2, 'IMAX', 10000),
-	(3, 'Talk', 2000);
+	(3, 'Talk', 2000),
+	(4, '2D', 7000);
+
+INSERT INTO Room
+VALUES	
+	(1, 150),
+	(2, 200),
+	(3, 100),
+	(4, 250);
 
 INSERT INTO Actor
 VALUES
@@ -239,6 +245,7 @@ VALUES
     (2, 'Thriller'),
     (3, 'Sci-fi'),
     (4, 'Animation');
+
 
 INSERT INTO Screening
 VALUES
@@ -295,6 +302,17 @@ VALUES
     (3, 6),
     (4, 7),
     (2, 8);
+
+INSERT INTO Food
+VALUES
+	(1, "coca", "drink", 3),
+	(2, "sprite", "drink", 3),
+	(3, "popcorn", "eat", 5),
+	(4, "candies", "eat", 4),
+	(5, "hotdog ", "eat", 6),
+	(6, "squid", "eat", 4),
+	(7, "americano", "drink", 3);
+
 
 
 

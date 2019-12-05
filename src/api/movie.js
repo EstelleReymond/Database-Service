@@ -33,7 +33,7 @@ router.get('/:id', async ctx => {
 })
 
 // CREATE A MOVIE
-router.post('/', required(['title', 'ageNeeded']), async ctx => {
+router.post('/', required(['title', 'ageNeeded','duration']), async ctx => {
 	let { title, ageNeeded, duration } = ctx.request.body
 
 	const id = await knex('Movie')
@@ -55,6 +55,19 @@ router.get('/:id/actors', async ctx => {
 		.where('MovieActor.movieID', '=', movieID)
 
 	ctx.body = actors
+})
+
+// GET ALL MOVIE WITH A SPECIAL ACTOR
+router.get('/actor/:id_actor', async ctx => {
+	const actorID = ctx.params.id_actor
+
+	const movies = await knex
+		.select('*')
+		.from('MovieActor')
+		.rightJoin('Actor', 'MovieActor.actorID', 'Actor.actorID')
+		.where('MovieActor.actorID', '=', actorID)
+
+	ctx.body = movies
 })
 
 // GET GENRES OF A MOVIE

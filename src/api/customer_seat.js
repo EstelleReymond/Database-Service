@@ -15,7 +15,17 @@ const get_from_id = (customerID, roomID, seatID) => {
 		.first()
 }
 
-// GET A CUSTOMER SEAT
+// ALL
+router.get('/all', async ctx => {
+	const seats = await knex
+		.select('*')
+		.from('CustomerSeat')
+
+	ctx.body = seats
+})
+
+
+// GET A CUSTOMER SEAT /// A REVOIR
 router.get('/:customer_id/:room_id/:seat_id', async ctx => {
 	const { customer_id, room_id, seat_id } = ctx.params
 

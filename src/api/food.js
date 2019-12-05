@@ -43,6 +43,19 @@ router.post('/', required(['foodName', 'typeFood', 'price']), async ctx => {
 
 	ctx.body = food
 })
+	
+//GET FOOD BY Type
+router.get('/by_type/:type_food', async ctx => {
+	const typeFood = ctx.params.type_food
+	
+    const foodByType = await knex
+        .select('Food.foodName','Food.price')
+        .from('Food')
+		.where('typeFood', '=', typeFood)
+		.orderBy('foodName')
+	
+    ctx.body = foodByType
+})
 
 // UPDATE A FOOD
 router.put('/:id', async (ctx) => {
