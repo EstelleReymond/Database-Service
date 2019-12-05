@@ -57,6 +57,7 @@ router.put('/:id', async (ctx) => {
 	const new_room = await get_from_id(roomID)
 
 	if (new_room.capacity > old_room.capacity) {
+		const seats = []
 		for (let i = old_room.capacity; i < new_room.capacity; ++i)
 			seats.push({ roomID, seatID: i })
 		await knex('RoomSeat')

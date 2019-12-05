@@ -14,6 +14,8 @@ const food_router = require('./food')
 const customer_router = require('./customer')
 const customer_seat_router = require('./customer_seat')
 
+const make_reservation_router = require('./make_reservation')
+
 router.use('/actor', actor_router.routes(), actor_router.allowedMethods())
 router.use('/movie', movie_router.routes(), movie_router.allowedMethods())
 router.use('/ad', ad_router.routes(), ad_router.allowedMethods())
@@ -26,5 +28,6 @@ router.use('/screening', screening_router.routes(), screening_router.allowedMeth
 router.use('/food', food_router.routes(), food_router.allowedMethods())
 router.use('/customer', customer_router.routes(), customer_router.allowedMethods())
 router.use('/customer_seat', customer_seat_router.routes(), customer_seat_router.allowedMethods())
+router.use('/make_reservation', make_reservation_router.routes(), make_reservation_router.allowedMethods())
 
 module.exports = router
