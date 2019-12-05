@@ -44,6 +44,14 @@ const get_customer_seats = async (customerID, screeningID) => {
 		.andWhere('Customer.screeningID', screeningID)
 }
 
+const get_movie = async movieID => {
+	return await knex
+		.select('Movie.ageNeeded')
+		.from('Movie')
+		.where('movieID', movieID)
+		.first()
+}
+
 router.post('/', required(['screeningID', 'seats_ids', 'age']), async ctx => {
 	const { screeningID, age, seats_ids } = ctx.request.body
 	
@@ -59,6 +67,9 @@ router.post('/', required(['screeningID', 'seats_ids', 'age']), async ctx => {
 		ctx.throw(409, 'seats already occupied')
 
 	const screening = await get_screening(screeningID)
+	const movie = await get_movie(screening.movieID)
+	if (age < movie.ageNeeded)
+		ctx.throw(403, 'too young')
 	const customerID = await create_customer(screeningID, age)
 	await create_customer_seats(customerID, screening.roomID, seats_ids)
 	const customer_seats = await get_customer_seats(customerID, screeningID)
